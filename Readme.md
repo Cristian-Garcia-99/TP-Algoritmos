@@ -17,4 +17,4 @@ g. Submenú de impresión:
 
 ## Diagrama de Clases UML
 
-![Diagrama UML](imagenes/UML.png)
+![Diagrama UML](https://github.com/Cristian-Garcia-99/TP-Algoritmos/blob/master/Imagenes/UML.png)
