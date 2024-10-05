@@ -1,0 +1,55 @@
+# Build y carpetas generadas
+bin/
+obj/
+TestResults/
+out/
+
+# Archivos de dependencias
+*.log
+*.cache
+*.pdb
+*.exe
+*.dll
+*.so
+*.dylib
+*.class
+*.jar
+
+# Archivos temporales del IDE
+.vs/
+.vscode/
+*.user
+*.rsuser
+*.suo
+*.sln.docstates
+
+# Archivos de paquetes de NuGet
+packages/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Configuraciones de publicación de Visual Studio
+publish/
+*.pubxml
+*.publishproj
+
+# Archivos de configuración para herramientas de CI (si se están usando)
+appveyor.yml
+*.yml
+
+# Archivos de entornos virtuales y dependencias (si estás usando alguna herramienta específica)
+node_modules/
+.env
+.vscode/
+
+# Archivos generados por el compilador de TypeScript
+*.tsbuildinfo
+
+# Sistema de control de versiones de Mac
+.DS_Store
+
+# Archivos y carpetas ocultas de Windows
+Thumbs.db
+desktop.ini
