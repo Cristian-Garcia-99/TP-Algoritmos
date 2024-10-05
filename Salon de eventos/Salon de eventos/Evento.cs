@@ -32,7 +32,7 @@ namespace Salon_de_eventos
         public DateTime Fecha { get { return fecha; } }
         public string Tipo { get { return tipo; } }
         public string EstadoEvento { get { return estadoEvento; } }
-        public Encargado Encargado { get { return encargado; } }
+        public Encargado Encargado { set { encargado = value; } get { return encargado; } }
 
         //---------------------------------------------------------
         public void AgregarServicio(Servicio servicio)
