@@ -26,6 +26,7 @@ namespace Salon_de_eventos
         public string Nombre { get { return nombre; } }
         public string Dni { get { return dni; } }
         public string Cargo { get { return cargo; } }
+        public string Legajo { get { return legajo; } }
         public int Sueldo { set { this.sueldo = value; } get { return sueldo; } }
 
     }

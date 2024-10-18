@@ -14,7 +14,7 @@ namespace Salon_de_eventos
             : base(nombre, dni, cargo, legajo, sueldo)
         {
             this.sueldo_bonificacion = sueldo_bonificacion;
-            Sueldo = sueldo * sueldo_bonificacion;
+            Sueldo = sueldo * ( 1 + sueldo_bonificacion / 100 );
         }
     }
 }
