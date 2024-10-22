@@ -10,6 +10,10 @@ namespace Salon_de_eventos
     {
         public string motivo;
 
+        public HayEventoExeption()
+        {
+            //Constructor default vacío
+        }
         public HayEventoExeption(string motivo)
         {
             this.motivo = motivo;

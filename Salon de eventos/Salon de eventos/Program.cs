@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections;
 using System.Diagnostics;
+using System.Data;
 
 namespace Salon_de_eventos
 {
@@ -166,8 +167,31 @@ namespace Salon_de_eventos
             int año = int.Parse(Console.ReadLine());
             DateTime fecha = new DateTime(año, mes, dia);
             //DateTime fecha = DateTime.Now;
+            try
+            {
+                foreach(Evento ev in salon.ListaEventos)
+                {
+                    if(ev.Fecha == fecha)
+                    {
+                        //Si la fecha ingresada se encuentra ya registrada se genera el error
+                        throw new HayEventoExeption("Ya hay un evento en esta fecha");
+                    }
+                }
+            }
+            catch(HayEventoExeption ex)
+            {
+                //El error se captura y sale de la funcion
+                //Evitando llegar a la parte en la que se instancia el Evento mas abajo
+                Console.Clear();
+                Console.WriteLine(ex.motivo);
+                Console.ReadKey(true);
+                return;
+            }
+            //Se continua y se permite instanciar el evento
+
             Console.Write("Tipoo de evento: ");
             string tipo = Console.ReadLine();
+            //Instancio este Encargado para evitar un warning molesto de VScode
             Encargado encargado = new Encargado("aux", "aux", "aux", "aux", 11, 11);
             Console.Write("Legajo del encargado: ");
             string legajo = Console.ReadLine();
@@ -214,6 +238,7 @@ namespace Salon_de_eventos
         {
             Console.Clear();
             Console.WriteLine("***Cancelar Evento***");
+            
             Console.Write("dia: ");
             int dia = int.Parse(Console.ReadLine());
             Console.Write("mes: ");
@@ -243,7 +268,7 @@ namespace Salon_de_eventos
             string op;
             Console.WriteLine("1-Todos los eventos, Cliente y Tipo");
             Console.WriteLine("2-Todos los empleados");
-            Console.WriteLine("3- Eventos de un mes");
+            Console.WriteLine("3-Eventos de un mes");
             Console.WriteLine("4-Salir");
             op = Console.ReadLine();
             while (op != "4")
@@ -262,6 +287,14 @@ namespace Salon_de_eventos
                         break;
                     case "3":
                         //AGREGAR OPCION 3
+                        Console.Write("Ingrese el numero de mes con 2 digitos: ");
+                        int mes = int.Parse(Console.ReadLine());
+                        foreach(Evento evento in salon.ListaEventos)
+                        {
+                            if(evento.Fecha.Month == mes)
+                                Console.WriteLine("Cliente: {0}, Tipo: {1} año: {2} mes:{3}, dia:{4}", evento.Cliente, evento.Tipo, evento.Fecha.Year, evento.Fecha.Month, evento.Fecha.Day);
+                        }
+                        Console.ReadKey(true);
                         break;
                     default:
                         break;
