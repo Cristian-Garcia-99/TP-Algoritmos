@@ -33,7 +33,7 @@ namespace Salon_de_eventos
             //Lista servicios predefinido
             ArrayList serviciosPredefinidos = new ArrayList();
             Servicio musica = new Servicio("musica", "dj", "Pasan musica variada", 1, 12000);
-            Servicio luces = new Servicio("Luces", "técnicos", "Servicio de luces led", 1, 13000);
+            Servicio luces = new Servicio("luces", "técnicos", "Servicio de luces led", 1, 13000);
             Servicio humo = new Servicio("humo", "técnicos", "Servicio de hielo ceco", 1, 9000);
             serviciosPredefinidos.Add(musica);
             serviciosPredefinidos.Add(luces);
@@ -55,9 +55,9 @@ namespace Salon_de_eventos
                     switch (op) 
                     {
                         case "1":
-                            break;
+                            sumarServicio(molino); break;
                         case "2":
-                            break;
+                            restarServicio(molino); break;
                         case "3":
                           altaEmpleado(molino); break;
                         case "4":
@@ -83,7 +83,7 @@ namespace Salon_de_eventos
             Console.ReadKey(true);
         }
 
-        //Funciones
+        //Funciones-------------------------------------------
 
         //Menu
         static void menu()
@@ -97,6 +97,90 @@ namespace Salon_de_eventos
             Console.WriteLine("6-Cancelar Empleado ");
             Console.WriteLine("7-Submenu");
             Console.WriteLine("8-SALIR ");
+        }
+
+        //1)AGREGAR SERVICIO----------------------------------
+
+        static void sumarServicio(Salon salon)
+        {
+            Console.Clear();
+            Console.WriteLine("***Agregar Servicio***");
+
+            Console.WriteLine("Fecha del evento que desea modificar");
+            Console.Write("dia: ");
+            int dia = int.Parse(Console.ReadLine());
+            Console.Write("mes: ");
+            int mes = int.Parse(Console.ReadLine());
+            Console.Write("año: ");
+            int año = int.Parse(Console.ReadLine());
+            DateTime fecha = new DateTime(año, mes, dia);
+
+            foreach(Evento evento in salon.ListaEventos)
+            {
+                if(evento.Fecha == fecha)
+                {
+                    Console.WriteLine("Ingrese nombre: ");
+                    string nombre = Console.ReadLine();
+                    Console.Write("Ingrese Catering: ");
+                    string catering = Console.ReadLine();
+                    Console.Write("Ingrese descripción: ");
+                    string descripcion = Console.ReadLine();
+                    int cantidad = 1;
+                    Console.Write("Ingrese el costo del servicio: ");
+                    int costo_unitario = int.Parse(Console.ReadLine());
+
+                    Servicio servicio = new Servicio(nombre, catering, descripcion, cantidad, costo_unitario);
+                    evento.AgregarServicio(servicio);
+                    Console.WriteLine("Se ha agregado un servicio");
+                    Console.ReadKey(true);
+                    return; //Al agregar con éxito el salon sale de la funcion
+                }                
+            }
+            //Si recorrió la lista entera y no encontró el evento
+            Console.WriteLine("No se ha econtrado evento con dicha fecha");
+            Console.ReadKey(true);
+        }
+
+        //2)ELIMINAR SERVICIO---------------------------------
+
+        static void restarServicio(Salon salon)
+        {
+            Console.Clear();
+            Console.WriteLine("***Eliminar Servicio***");
+
+            Console.WriteLine("Fecha del evento que desea modificar");
+            Console.Write("dia: ");
+            int dia = int.Parse(Console.ReadLine());
+            Console.Write("mes: ");
+            int mes = int.Parse(Console.ReadLine());
+            Console.Write("año: ");
+            int año = int.Parse(Console.ReadLine());
+            DateTime fecha = new DateTime(año, mes, dia);
+
+            foreach (Evento evento in salon.ListaEventos)
+            { 
+                if(evento.Fecha == fecha)
+                {
+                    Console.Write("Escriba el nombre del servicio que desea eliminar: ");
+                    string nombre = Console.ReadLine();
+                    foreach(Servicio servicio in evento.ListaServicios)
+                    {
+                        if(servicio.Nombre.ToLower() == nombre.ToLower())
+                        {
+                            evento.EliminarServicio(servicio);
+                            Console.WriteLine("Se ha eliminado el servicio");
+                            Console.ReadKey(true);
+                            return; //Elimina el servicio y sale de la funcion
+                        }
+                    }
+                    //Si no se encuentra el servicio
+                    Console.WriteLine("No se puede eliminar el servicio porque no exiiste");
+                    Console.ReadKey(true);
+                }
+            }
+            //Si no se encuentra el evento
+            Console.WriteLine("No se ha econtrado evento con dicha fecha");
+            Console.ReadKey(true);
         }
 
         //3)ALTA----------------------------------------------
@@ -238,7 +322,8 @@ namespace Salon_de_eventos
         {
             Console.Clear();
             Console.WriteLine("***Cancelar Evento***");
-            
+
+            Console.WriteLine("Fecha del evento que desea cancelar");
             Console.Write("dia: ");
             int dia = int.Parse(Console.ReadLine());
             Console.Write("mes: ");
@@ -251,12 +336,14 @@ namespace Salon_de_eventos
                 if(evento.Fecha.Day == dia && evento.Fecha.Month == mes && evento.Fecha.Year == año)
                 {
                     salon.EliminarEvento(evento);
-                    break;
+                    Console.WriteLine("El evento ha sido cancelado");
+                    Console.ReadKey(true);
+                    return; //Se elimina el evento y sale de la funcion
                 }
             }
-
-            Console.WriteLine("Fecha del evento que desea cancelar");
-
+            //Si no se encuentra el evento
+            Console.WriteLine("No se encontró evento con esa fecha");
+            Console.ReadKey(true);
         }
 
         //7)SUBMENU--------------------------------------------
