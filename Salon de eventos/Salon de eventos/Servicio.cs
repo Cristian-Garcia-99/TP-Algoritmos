@@ -28,6 +28,7 @@ namespace Salon_de_eventos
         public string Nombre { get { return nombre; } }
         public string Catering { get { return catering; } }
         public string Descripcion { get { return descripcion; } }
-        public int Costo { get { return costo; } }
+        public int Cantidad { set { cantidad = value; } get { return cantidad; } }
+        public int Costo { set { costo = cantidad * costo_unitario; } get { return costo; } }
     }
 }
