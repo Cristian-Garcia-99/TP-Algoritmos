@@ -23,12 +23,14 @@ namespace Salon_de_eventos
             Empleado abril = new Empleado("Abril Montes", "24.000.000", "Recepcionista", "222222", 12000);
             Empleado marisol = new Empleado("Marisol Gutierrez", "19.000.000", "Mesa Dulce", "333333", 15000);
             Encargado encargado_marcos = new Encargado("Marcos Di Cecco", "17.000.000", "Encargado", "000000", 15000, 33);
+            Encargado encargado_fran = new Encargado("Francisco Lugano", "23.000.000", "Encargado", "010101", 15000, 33);
 
             //Cargo empleados en salon
             molino.AgregarEmpleado(juan);
             molino.AgregarEmpleado(abril);
             molino.AgregarEmpleado(marisol);
             molino.AgregarEmpleado(encargado_marcos);
+            molino.AgregarEmpleado(encargado_fran);
 
             //Lista servicios predefinido
             ArrayList serviciosPredefinidos = new ArrayList();
@@ -231,8 +233,12 @@ namespace Salon_de_eventos
                     salon.EliminarEmpleado(empleado);
                     Console.WriteLine("Se ha dado de baja al empleado");
                     Console.ReadKey(true);
+                    return; //Elimina el empleado y sale de la funcion
                 }
             }
+            //Si no se ha coincidido el legajo con ningun empleado
+            Console.WriteLine("No se ha encontrado el empleado");
+            Console.ReadKey(true);
         }
 
         //5)RESERVAR EVENTO-------------------------------
@@ -277,6 +283,14 @@ namespace Salon_de_eventos
             string tipo = Console.ReadLine();
             //Instancio este Encargado para evitar un warning molesto de VScode
             Encargado encargado = new Encargado("aux", "aux", "aux", "aux", 11, 11);
+            Console.WriteLine("Lista de encargados");
+         
+            //Muestra lista de encargados
+            foreach(Empleado enc in salon.Empleados_fijos)
+            {
+                if(enc.Cargo.ToLower() == "encargado")
+                    Console.WriteLine("+ Nombre: {0}, Legajo: {1}", enc.Nombre, enc.Legajo);
+            }
             Console.Write("Legajo del encargado: ");
             string legajo = Console.ReadLine();
            foreach (Empleado enc in salon.Empleados_fijos)
@@ -369,7 +383,7 @@ namespace Salon_de_eventos
                         break;
                     case "2":
                         foreach (Empleado empleado in salon.Empleados_fijos)
-                            Console.WriteLine("Nombre: {0}, Legajo: {1}, Cargo: {2}", empleado.Nombre, empleado.Legajo, empleado.Cargo);
+                            Console.WriteLine("ID: {0}, Nombre: {1}, Legajo: {2}, Cargo: {3}", empleado.ID ,empleado.Nombre, empleado.Legajo, empleado.Cargo);
                         Console.ReadKey(true);
                         break;
                     case "3":
