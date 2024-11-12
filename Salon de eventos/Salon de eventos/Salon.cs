@@ -65,7 +65,7 @@ namespace Salon_de_eventos
             listaEventos.Remove(evento);
         }
 
-        public int CantidadEvento(int i)
+        public int CantidadEvento()
         {
             return listaEventos.Count;
         }

@@ -96,7 +96,7 @@ namespace Salon_de_eventos
             Console.WriteLine("3-Alta Empleado ");
             Console.WriteLine("4-Baja Empleado ");
             Console.WriteLine("5-Reservar Evento ");
-            Console.WriteLine("6-Cancelar Empleado ");
+            Console.WriteLine("6-Cancelar Evento ");
             Console.WriteLine("7-Submenu");
             Console.WriteLine("8-SALIR ");
         }
@@ -377,17 +377,33 @@ namespace Salon_de_eventos
                 switch (op)
                 {
                     case "1":
+                        //Si no hay eventos cargados
+                        if(salon.CantidadEvento() == 0)
+                            Console.WriteLine("No hay eventos cargados");
+                        
+                        //Si hay eventos
                         foreach (Evento evento in salon.ListaEventos)
                             Console.WriteLine("Cliente: {0}, Tipo: {1} año: {2} mes:{3}, dia:{4}", evento.Cliente, evento.Tipo, evento.Fecha.Year, evento.Fecha.Month, evento.Fecha.Day);
+                        
                         Console.ReadKey(true);
                         break;
+                    
                     case "2":
                         foreach (Empleado empleado in salon.Empleados_fijos)
                             Console.WriteLine("ID: {0}, Nombre: {1}, Legajo: {2}, Cargo: {3}", empleado.ID ,empleado.Nombre, empleado.Legajo, empleado.Cargo);
                         Console.ReadKey(true);
                         break;
+                    
                     case "3":
-                        //AGREGAR OPCION 3
+                        //Si no hay eventos cargados
+                        if (salon.CantidadEvento() == 0)
+                        {
+                            Console.WriteLine("No hay eventos cargados");
+                            Console.ReadKey(true);
+                            break;
+                        }    
+
+                        //Si hay eventos muestra el de un mes ingresado
                         Console.Write("Ingrese el numero de mes con 2 digitos: ");
                         int mes = int.Parse(Console.ReadLine());
                         foreach(Evento evento in salon.ListaEventos)
@@ -397,6 +413,7 @@ namespace Salon_de_eventos
                         }
                         Console.ReadKey(true);
                         break;
+                    
                     default:
                         break;
 
